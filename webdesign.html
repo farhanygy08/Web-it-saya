@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Design - AI Technology</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --accent: #06b6d4;
+            --accent2: #8b5cf6;
+            --pink: #ec4899;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --bg-dark: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.7);
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.06);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ===== PARTICLES ===== */
+        #particles-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 14px 30px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-back {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-back:hover {
+            background: rgba(139, 92, 246, 0.15);
+            border-color: rgba(139, 92, 246, 0.3);
+        }
+
+        .nav-logo {
+            font-size: 18px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent2), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-right {
+            margin-left: auto;
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .nav-btn:hover {
+            background: rgba(139, 92, 246, 0.15);
+            color: var(--accent2);
+        }
+
+        .nav-btn.primary {
+            background: linear-gradient(135deg, var(--accent2), var(--pink));
+            color: #fff;
+            border: none;
+        }
+
+        /* ===== MAIN ===== */
+        .main {
+            position: relative;
+            z-index: 1;
+            padding: 100px 20px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ===== HERO ===== */
+        .page-hero {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .page-hero .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 50px;
+            font-size: 12px;
+            color: var(--accent2);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .page-hero h1 {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 900;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .page-hero h1 .gradient {
+            background: linear-gradient(135deg, var(--accent2), var(--pink), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-hero p {
+            color: var(--text-muted);
+            font-size: 17px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ===== DESIGN PRINCIPLES ===== */
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .principle-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 28px;
+            text-align: center;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .principle-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(139, 92, 246, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .principle-card .p-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .principle-card h3 {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .principle-card p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .principle-card .p-level {
+            margin-top: 14px;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .p-level.basic { background: rgba(34, 197, 94, 0.15); color: var(--success); }
+        .p-level.advanced { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+        .p-level.expert { background: rgba(236, 72, 153, 0.15); color: var(--pink); }
+
+        /* ===== COLOR PALETTE ===== */
+        .palette-section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .section-title h2 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+        }
+
+        .palette-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .palette-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .palette-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(139, 92, 246, 0.3);
+        }
+
+        .palette-preview {
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            position: relative;
+        }
+
+        .palette-preview::after {
+            content: attr(data-name);
+            position: absolute;
+            bottom: 12px;
+            left: 16px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .palette-body {
+            padding: 20px;
+        }
+
+        .palette-body h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .color-swatches {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .swatch {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .swatch:hover {
+            transform: scale(1.2);
+            border-color: #fff;
+            z-index: 2;
+        }
+
+        .swatch .hex {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-muted);
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .swatch:hover .hex {
+            opacity: 1;
+        }
+
+        .palette-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        .typography-section {
+            margin-bottom: 50px;
+        }
+
+        .type-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .type-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .type-card:hover {
+            border-color: rgba(139, 92, 246, 0.3);
+        }
+
+        .type-card .type-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent2);
+            margin-bottom: 12px;
+        }
+
+        .type-card .font-name {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .type-sample {
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .type-sample .big {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .type-sample .medium {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .type-sample .small {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* ===== UI COMPONENTS ===== */
+        .components-section {
+            margin-bottom: 50px;
+        }
+
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .component-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .component-card:hover {
+            border-color: rgba(139, 92, 246, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .component-card h3 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Buttons showcase */
+        .btn-showcase {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .demo-btn {
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .demo-btn.primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; }
+        .demo-btn.primary:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(59,130,246,0.4); }
+        .demo-btn.accent { background: linear-gradient(135deg, var(--accent2), var(--pink)); color: #fff; }
+        .demo-btn.accent:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(139,92,246,0.4); }
+        .demo-btn.outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+        .demo-btn.outline:hover { border-color: var(--accent2); background: rgba(139,92,246,0.1); }
+        .demo-btn.success { background: var(--success); color: #fff; }
+        .demo-btn.success:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(34,197,94,0.4); }
+
+        /* Input showcase */
+        .input-showcase {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .demo-input {
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 13px;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .demo-input:focus {
+            border-color: var(--accent2);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+        }
+
+        .demo-input::placeholder { color: var(--text-muted); }
+
+        /* Cards showcase */
+        .mini-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .mini-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .mini-card .mc-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .mini-card .mc-text strong {
+            font-size: 13px;
+            display: block;
+        }
+
+        .mini-card .mc-text span {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* Badges & Tags */
+        .badge-showcase {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .demo-badge {
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .demo-badge.blue { background: rgba(59,130,246,0.15); color: var(--primary); }
+        .demo-badge.purple { background: rgba(139,92,246,0.15); color: var(--accent2); }
+        .demo-badge.green { background: rgba(34,197,94,0.15); color: var(--success); }
+        .demo-badge.orange { background: rgba(245,158,11,0.15); color: var(--warning); }
+        .demo-badge.pink { background: rgba(236,72,153,0.15); color: var(--pink); }
+        .demo-badge.red { background: rgba(239,68,68,0.15); color: var(--danger); }
+
+        /* Progress bars */
+        .progress-showcase {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .demo-progress {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .demo-progress .p-label {
+            font-size: 12px;
+            font-weight: 600;
+            width: 80px;
+        }
+
+        .demo-progress .p-bar {
+            flex: 1;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .demo-progress .p-fill {
+            height: 100%;
+            border-radius: 8px;
+            transition: width 1.5s ease;
+        }
+
+        .demo-progress .p-value {
+            font-size: 12px;
+            font-weight: 700;
+            width: 35px;
+            text-align: right;
+        }
+
+        /* ===== ANIMATIONS SECTION ===== */
+        .animations-section {
+            margin-bottom: 50px;
+        }
+
+        .anim-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .anim-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .anim-card:hover {
+            border-color: rgba(139, 92, 246, 0.3);
+        }
+
+        .anim-card h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .anim-demo {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .anim-box {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent2), var(--pink));
+        }
+
+        .anim-box.spin { animation: spin 2s linear infinite; }
+        .anim-box.bounce { animation: bounce 1s ease infinite; }
+        .anim-box.pulse { animation: pulse 1.5s ease infinite; }
+        .anim-box.shake { animation: shake 0.5s ease infinite; }
+        .anim-box.flip { animation: flip 1.5s ease infinite; }
+        .anim-box.fade { animation: fadeInOut 2s ease infinite; }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3); } }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
+        @keyframes flip { 0% { transform: perspective(400px) rotateY(0); } 50% { transform: perspective(400px) rotateY(180deg); } 100% { transform: perspective(400px) rotateY(360deg); } }
+        @keyframes fadeInOut { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+        /* ===== TOOLS GRID ===== */
+        .tools-section {
+            margin-bottom: 50px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .tool-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(139, 92, 246, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .tool-card .tool-emoji {
+            font-size: 32px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .tool-card h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .tool-card p {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .tool-card .tool-tag {
+            margin-top: 10px;
+            padding: 3px 8px;
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 4px;
+            font-size: 10px;
+            color: var(--accent2);
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        /* ===== BACK BUTTON ===== */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .back-btn:hover {
+            background: rgba(139, 92, 246, 0.15);
+            border-color: rgba(139, 92, 246, 0.3);
+            transform: translateX(-4px);
+        }
+
+        /* ===== REVEAL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            padding: 14px 20px;
+            background: rgba(30, 41, 59, 0.95);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 14px;
+            z-index: 3000;
+            transform: translateX(120%);
+            transition: transform 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .toast.show { transform: translateX(0); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .navbar { padding: 12px 16px; }
+            .main { padding: 90px 16px 40px; }
+            .nav-right { display: none; }
+            .page-hero h1 { font-size: 28px; }
+        }
+
+        @media (max-width: 480px) {
+            .palette-grid { grid-template-columns: 1fr; }
+            .type-showcase { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="Dasboard.html" class="nav-back">← Dashboard</a>
+        <span class="nav-logo">🎨 Web Design</span>
+        <div class="nav-right">
+            <button class="nav-btn" onclick="showToast('📐 Design System segera hadir!')"> System</button>
+            <button class="nav-btn primary" onclick="showToast('🎨 Mockup editor segera hadir!')"> Editor</button>
+        </div>
+    </nav>
+
+    <div class="main">
+
+        <!-- Hero -->
+        <div class="page-hero reveal">
+            <span class="tag">Design</span>
+            <h1>Web <span class="gradient">Design</span> Modern</h1>
+            <p>Prinsip, tools, dan best practices untuk merancang website yang memukau, user-friendly, dan profesional.</p>
+        </div>
+
+        <!-- Design Principles -->
+        <div class="principles-grid">
+            <div class="principle-card reveal">
+                <span class="p-icon">🎯</span>
+                <h3>Konsistensi</h3>
+                <p>Gunakan design system yang konsisten: warna, font, spacing, dan komponen yang seragam di seluruh website.</p>
+                <span class="p-level basic">Fundamental</span>
+            </div>
+            <div class="principle-card reveal">
+                <span class="p-icon">♿</span>
+                <h3>Aksesibilitas</h3>
+                <p>Desain untuk semua pengguna: kontras yang cukup, navigasi keyboard, alt text, dan screen reader support.</p>
+                <span class="p-level basic">Fundamental</span>
+            </div>
+            <div class="principle-card reveal">
+                <span class="p-icon">⚡</span>
+                <h3>Performance</h3>
+                <p>Optimasi loading speed, lazy loading, image compression, dan minimalize CSS/JS untuk UX optimal.</p>
+                <span class="p-level advanced">Advanced</span>
+            </div>
+            <div class="principle-card reveal">
+                <span class="p-icon"></span>
+                <h3>Responsive</h3>
+                <p>Adaptive design di semua ukuran layar: mobile-first approach, fluid grid, dan flexible images.</p>
+                <span class="p-level basic">Fundamental</span>
+            </div>
+            <div class="principle-card reveal">
+                <span class="p-icon">✨</span>
+                <h3>Micro-interactions</h3>
+                <p>Animasi dan transisi halus untuk feedback pengguna: hover effects, loading states, dan success animations.</p>
+                <span class="p-level advanced">Advanced</span>
+            </div>
+            <div class="principle-card reveal">
+                <span class="p-icon"></span>
+                <h3>Dark Mode</h3>
+                <p>Support mode gelap & terang dengan toggle yang smooth, auto-detect system preference, dan accessible contrast.</p>
+                <span class="p-level expert">Expert</span>
+            </div>
+            <div class="principle-card reveal">
+                <span class="p-icon"></span>
+                <h3>Information Architecture</h3>
+                <p>Struktur konten yang jelas: hierarchy, navigation, dan content organization untuk user-friendly experience.</p>
+                <span class="p-level advanced">Advanced</span>
+            </div>
+            <div class="principle-card reveal">
+                <span class="p-icon"></span>
+                <h3>Brand Identity</h3>
+                <p>Visual identity yang kuat: logo, color palette, typography, dan visual style yang konsisten dan memorable.</p>
+                <span class="p-level expert">Expert</span>
+            </div>
+        </div>
+
+        <!-- Color Palettes -->
+        <div class="palette-section reveal">
+            <div class="section-title">
+                <h2>🎨 Color Palettes</h2>
+                <p>Koleksi palet warna untuk berbagai jenis website</p>
+            </div>
+            <div class="palette-grid">
+                <div class="palette-card">
+                    <div class="palette-preview" data-name="Tech Blue" style="background: linear-gradient(135deg, #1e3a5f, #3b82f6, #06b6d4);">
+                        💻
+                    </div>
+                    <div class="palette-body">
+                        <h3>Tech Blue</h3>
+                        <div class="color-swatches">
+                            <div class="swatch" style="background: #0f172a;"><span class="hex">#0f172a</span></div>
+                            <div class="swatch" style="background: #1e3a5f;"><span class="hex">#1e3a5f</span></div>
+                            <div class="swatch" style="background: #3b82f6;"><span class="hex">#3b82f6</span></div>
+                            <div class="swatch" style="background: #06b6d4;"><span class="hex">#06b6d4</span></div>
+                            <div class="swatch" style="background: #e2e8f0;"><span class="hex">#e2e8f0</span></div>
+                        </div>
+                        <div class="palette-info">
+                            <span>🏢 Corporate</span>
+                            <span>📊 Dashboard</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="palette-card">
+                    <div class="palette-preview" data-name="Creative Purple" style="background: linear-gradient(135deg, #1e293b, #8b5cf6, #ec4899);">
+                        🎨
+                    </div>
+                    <div class="palette-body">
+                        <h3>Creative Purple</h3>
+                        <div class="color-swatches">
+                            <div class="swatch" style="background: #1e293b;"><span class="hex">#1e293b</span></div>
+                            <div class="swatch" style="background: #8b5cf6;"><span class="hex">#8b5cf6</span></div>
+                            <div class="swatch" style="background: #a855f7;"><span class="hex">#a855f7</span></div>
+                            <div class="swatch" style="background: #ec4899;"><span class="hex">#ec4899</span></div>
+                            <div class="swatch" style="background: #f9fafb;"><span class="hex">#f9fafb</span></div>
+                        </div>
+                        <div class="palette-info">
+                            <span>🎨 Creative</span>
+                            <span>🌟 Portfolio</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="palette-card">
+                    <div class="palette-preview" data-name="Nature Green" style="background: linear-gradient(135deg, #064e3b, #22c55e, #06b6d4);">
+                        🌿
+                    </div>
+                    <div class="palette-body">
+                        <h3>Nature Green</h3>
+                        <div class="color-swatches">
+                            <div class="swatch" style="background: #064e3b;"><span class="hex">#064e3b</span></div>
+                            <div class="swatch" style="background: #059669;"><span class="hex">#059669</span></div>
+                            <div class="swatch" style="background: #22c55e;"><span class="hex">#22c55e</span></div>
+                            <div class="swatch" style="background: #06b6d4;"><span class="hex">#06b6d4</span></div>
+                            <div class="swatch" style="background: #ecfdf5;"><span class="hex">#ecfdf5</span></div>
+                        </div>
+                        <div class="palette-info">
+                            <span>🌱 Eco</span>
+                            <span>🏥 Health</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="palette-card">
+                    <div class="palette-preview" data-name="Warm Sunset" style="background: linear-gradient(135deg, #7c2d12, #f59e0b, #ef4444);">
+                        🌅
+                    </div>
+                    <div class="palette-body">
+                        <h3>Warm Sunset</h3>
+                        <div class="color-swatches">
+                            <div class="swatch" style="background: #7c2d12;"><span class="hex">#7c2d12</span></div>
+                            <div class="swatch" style="background: #f59e0b;"><span class="hex">#f59e0b</span></div>
+                            <div class="swatch" style="background: #f97316;"><span class="hex">#f97316</span></div>
+                            <div class="swatch" style="background: #ef4444;"><span class="hex">#ef4444</span></div>
+                            <div class="swatch" style="background: #fffbeb;"><span class="hex">#fffbeb</span></div>
+                        </div>
+                        <div class="palette-info">
+                            <span>🍕 Food</span>
+                            <span>🎉 Event</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="palette-card">
+                    <div class="palette-preview" data-name="Minimal Dark" style="background: linear-gradient(135deg, #000000, #1f2937, #4b5563);">
+                        ⬛
+                    </div>
+                    <div class="palette-body">
+                        <h3>Minimal Dark</h3>
+                        <div class="color-swatches">
+                            <div class="swatch" style="background: #000000;"><span class="hex">#000000</span></div>
+                            <div class="swatch" style="background: #1f2937;"><span class="hex">#1f2937</span></div>
+                            <div class="swatch" style="background: #4b5563;"><span class="hex">#4b5563</span></div>
+                            <div class="swatch" style="background: #9ca3af;"><span class="hex">#9ca3af</span></div>
+                            <div class="swatch" style="background: #ffffff;"><span class="hex">#ffffff</span></div>
+                        </div>
+                        <div class="palette-info">
+                            <span>📱 Modern</span>
+                            <span>️ SaaS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="palette-card">
+                    <div class="palette-preview" data-name="Playful Pastel" style="background: linear-gradient(135deg, #fce7f3, #c4b5fd, #bae6fd);">
+                        🧁
+                    </div>
+                    <div class="palette-body">
+                        <h3>Playful Pastel</h3>
+                        <div class="color-swatches">
+                            <div class="swatch" style="background: #fce7f3;"><span class="hex">#fce7f3</span></div>
+                            <div class="swatch" style="background: #c4b5fd;"><span class="hex">#c4b5fd</span></div>
+                            <div class="swatch" style="background: #bae6fd;"><span class="hex">#bae6fd</span></div>
+                            <div class="swatch" style="background: #bbf7d0;"><span class="hex">#bbf7d0</span></div>
+                            <div class="swatch" style="background: #fef3c7;"><span class="hex">#fef3c7</span></div>
+                        </div>
+                        <div class="palette-info">
+                            <span> Kids</span>
+                            <span> Medical</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Typography -->
+        <div class="typography-section reveal">
+            <div class="section-title">
+                <h2>🔤 Typography</h2>
+                <p>Pemilihan font yang meningkatkan readability dan branding</p>
+            </div>
+            <div class="type-showcase">
+                <div class="type-card">
+                    <div class="type-label">Heading Font</div>
+                    <div class="font-name">Inter (Bold / 800)</div>
+                    <div class="type-sample">
+                        <div class="big">AI Technology</div>
+                        <div class="medium">Membangun masa depan dengan kecerdasan buatan</div>
+                        <div class="small">Font: Inter | Size: 24px | Weight: 800</div>
+                    </div>
+                </div>
+                <div class="type-card">
+                    <div class="type-label">Body Font</div>
+                    <div class="font-name">Inter (Regular / 400)</div>
+                    <div class="type-sample">
+                        <div class="big" style="font-weight:400;">Lorem ipsum dolor sit amet</div>
+                        <div class="medium">Consectetur adipiscing elit, sed do eiusmod</div>
+                        <div class="small">Font: Inter | Size: 14px | Weight: 400</div>
+                    </div>
+                </div>
+                <div class="type-card">
+                    <div class="type-label">Code Font</div>
+                    <div class="font-name">JetBrains Mono (Mono)</div>
+                    <div class="type-sample">
+                        <div class="big" style="font-family:'JetBrains Mono',monospace;font-weight:500;">const ai = await model.run()</div>
+                        <div class="medium" style="font-family:'JetBrains Mono',monospace;">console.log(ai.response)</div>
+                        <div class="small">Font: JetBrains Mono | Size: 13px</div>
+                    </div>
+                </div>
+                <div class="type-card">
+                    <div class="type-label">Display Font</div>
+                    <div class="font-name">Inter (Black / 900)</div>
+                    <div class="type-sample">
+                        <div class="big" style="font-weight:900;letter-spacing:-1px;">DESIGN</div>
+                        <div class="medium" style="font-weight:300;font-size:14px;">Less is more</div>
+                        <div class="small">Font: Inter | Size: 36px | Weight: 900</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- UI Components -->
+        <div class="components-section reveal">
+            <div class="section-title">
+                <h2>🧩 UI Components</h2>
+                <p>Komponen desain yang bisa langsung digunakan</p>
+            </div>
+            <div class="components-grid">
+                <div class="component-card">
+                    <h3>🔘 Buttons</h3>
+                    <div class="btn-showcase">
+                        <button class="demo-btn primary">Primary</button>
+                        <button class="demo-btn accent">Accent</button>
+                        <button class="demo-btn outline">Outline</button>
+                        <button class="demo-btn success">Success</button>
+                    </div>
+                </div>
+
+                <div class="component-card">
+                    <h3>📝 Inputs</h3>
+                    <div class="input-showcase">
+                        <input class="demo-input" type="text" placeholder="Nama lengkap..." readonly>
+                        <input class="demo-input" type="email" placeholder="Email address..." readonly>
+                        <input class="demo-input" type="password" placeholder="Password..." readonly>
+                    </div>
+                </div>
+
+                <div class="component-card">
+                    <h3>🏷️ Badges & Tags</h3>
+                    <div class="badge-showcase">
+                        <span class="demo-badge blue">Blue</span>
+                        <span class="demo-badge purple">Purple</span>
+                        <span class="demo-badge green">Success</span>
+                        <span class="demo-badge orange">Warning</span>
+                        <span class="demo-badge pink">Pink</span>
+                        <span class="demo-badge red">Danger</span>
+                    </div>
+                </div>
+
+                <div class="component-card">
+                    <h3>📊 Progress Bars</h3>
+                    <div class="progress-showcase">
+                        <div class="demo-progress">
+                            <span class="p-label">HTML/CSS</span>
+                            <div class="p-bar"><div class="p-fill" style="width:95%;background:linear-gradient(90deg,var(--primary),var(--accent));"></div></div>
+                            <span class="p-value">95%</span>
+                        </div>
+                        <div class="demo-progress">
+                            <span class="p-label">JavaScript</span>
+                            <div class="p-bar"><div class="p-fill" style="width:88%;background:linear-gradient(90deg,var(--accent2),var(--pink));"></div></div>
+                            <span class="p-value">88%</span>
+                        </div>
+                        <div class="demo-progress">
+                            <span class="p-label">React</span>
+                            <div class="p-bar"><div class="p-fill" style="width:82%;background:linear-gradient(90deg,#61dafb,#3b82f6);"></div></div>
+                            <span class="p-value">82%</span>
+                        </div>
+                        <div class="demo-progress">
+                            <span class="p-label">Python</span>
+                            <div class="p-bar"><div class="p-fill" style="width:75%;background:linear-gradient(90deg,var(--success),var(--accent));"></div></div>
+                            <span class="p-value">75%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="component-card">
+                    <h3>📦 Cards</h3>
+                    <div class="mini-cards">
+                        <div class="mini-card">
+                            <div class="mc-icon" style="background:rgba(59,130,246,0.15);">🤖</div>
+                            <div class="mc-text">
+                                <strong>AI Chatbot</strong>
+                                <span>Online • Ready</span>
+                            </div>
+                        </div>
+                        <div class="mini-card">
+                            <div class="mc-icon" style="background:rgba(34,197,94,0.15);">✅</div>
+                            <div class="mc-text">
+                                <strong>Deployment</strong>
+                                <span>Success • 2 min ago</span>
+                            </div>
+                        </div>
+                        <div class="mini-card">
+                            <div class="mc-icon" style="background:rgba(245,158,11,0.15);">⚡</div>
+                            <div class="mc-text">
+                                <strong>Performance</strong>
+                                <span>99.9% uptime</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="component-card">
+                    <h3>🎬 Animations</h3>
+                    <div class="anim-showcase" style="grid-template-columns: repeat(3, 1fr);">
+                        <div class="anim-card" style="border:none;background:transparent;padding:10px;">
+                            <div class="anim-demo"><div class="anim-box spin"></div></div>
+                            <div style="font-size:11px;color:var(--text-muted);">Spin</div>
+                        </div>
+                        <div class="anim-card" style="border:none;background:transparent;padding:10px;">
+                            <div class="anim-demo"><div class="anim-box bounce"></div></div>
+                            <div style="font-size:11px;color:var(--text-muted);">Bounce</div>
+                        </div>
+                        <div class="anim-card" style="border:none;background:transparent;padding:10px;">
+                            <div class="anim-demo"><div class="anim-box pulse"></div></div>
+                            <div style="font-size:11px;color:var(--text-muted);">Pulse</div>
+                        </div>
+                        <div class="anim-card" style="border:none;background:transparent;padding:10px;">
+                            <div class="anim-demo"><div class="anim-box shake"></div></div>
+                            <div style="font-size:11px;color:var(--text-muted);">Shake</div>
+                        </div>
+                        <div class="anim-card" style="border:none;background:transparent;padding:10px;">
+                            <div class="anim-demo"><div class="anim-box flip"></div></div>
+                            <div style="font-size:11px;color:var(--text-muted);">Flip</div>
+                        </div>
+                        <div class="anim-card" style="border:none;background:transparent;padding:10px;">
+                            <div class="anim-demo"><div class="anim-box fade"></div></div>
+                            <div style="font-size:11px;color:var(--text-muted);">Fade</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Design Tools -->
+        <div class="tools-section reveal">
+            <div class="section-title">
+                <h2>🛠️ Design Tools</h2>
+                <p>Tools dan software yang digunakan untuk desain web profesional</p>
+            </div>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <span class="tool-emoji">🎨</span>
+                    <h4>Figma</h4>
+                    <p>UI/UX Design & Prototyping</p>
+                    <span class="tool-tag">Free Plan</span>
+                </div>
+                <div class="tool-card">
+                    <span class="tool-emoji">🖌️</span>
+                    <h4>Adobe XD</h4>
+                    <p>Wireframe & Prototype</p>
+                    <span class="tool-tag">Paid</span>
+                </div>
+                <div class="tool-card">
+                    <span class="tool-emoji">📐</span>
+                    <h4>Sketch</h4>
+                    <p>Mac-native Design Tool</p>
+                    <span class="tool-tag">Paid</span>
+                </div>
+                <div class="tool-card">
+                    <span class="tool-emoji">💜</span>
+                    <h4>Penpot</h4>
+                    <p>Open Source Design Tool</p>
+                    <span class="tool-tag">Free</span>
+                </div>
+                <div class="tool-card">
+                    <span class="tool-emoji">🌊</span>
+                    <h4>Tailwind CSS</h4>
+                    <p>Utility-first CSS Framework</p>
+                    <span class="tool-tag">Open Source</span>
+                </div>
+                <div class="tool-card">
+                    <span class="tool-emoji">✨</span>
+                    <h4>Framer Motion</h4>
+                    <p>Animation & Micro-interactions</p>
+                    <span class="tool-tag">Open Source</span>
+                </div>
+                <div class="tool-card">
+                    <span class="tool-emoji">🎭</span>
+                    <h4>Unsplash</h4>
+                    <p>Free Stock Photos</p>
+                    <span class="tool-tag">Free</span>
+                </div>
+                <div class="tool-card">
+                    <span class="tool-emoji">🔤</span>
+                    <h4>Google Fonts</h4>
+                    <p>Free Web Fonts Library</p>
+                    <span class="tool-tag">Free</span>
+                </div>
+                <div class="tool-card">
+                    <span class="tool-emoji">🎯</span>
+                    <h4>Coolors</h4>
+                    <p>Color Palette Generator</p>
+                    <span class="tool-tag">Free Plan</span>
+                </div>
+                <div class="tool-card">
+                    <span class="tool-emoji">📏</span>
+                    <h4>Linear</h4>
+                    <p>Project Management</p>
+                    <span class="tool-tag">Free Plan</span>
+                </div>
+                <div class="tool-card">
+                    <span class="tool-emoji">🗂️</span>
+                    <h4>Notion</h4>
+                    <p>Documentation & Wiki</p>
+                    <span class="tool-tag">Free Plan</span>
+                </div>
+                <div class="tool-card">
+                    <span class="tool-emoji">📊</span>
+                    <h4>Hotjar</h4>
+                    <p>Heatmap & User Analytics</p>
+                    <span class="tool-tag">Free Plan</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Design Flow -->
+        <div class="reveal" style="margin-bottom:50px;">
+            <div class="section-title">
+                <h2>📋 Design Workflow</h2>
+                <p>Proses desain website dari awal hingga finish</p>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:center;">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;min-width:140px;">
+                    <span style="font-size:28px;">📋</span>
+                    <strong style="font-size:13px;">Research</strong>
+                    <span style="font-size:11px;color:var(--text-muted);">Analisa kompetitor & user</span>
+                </div>
+                <span style="font-size:20px;color:var(--accent2);align-self:center;">→</span>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;min-width:140px;">
+                    <span style="font-size:28px;">📐</span>
+                    <strong style="font-size:13px;">Wireframe</strong>
+                    <span style="font-size:11px;color:var(--text-muted);">Low-fidelity layout</span>
+                </div>
+                <span style="font-size:20px;color:var(--accent2);align-self:center;">→</span>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;min-width:140px;">
+                    <span style="font-size:28px;">🎨</span>
+                    <strong style="font-size:13px;">UI Design</strong>
+                    <span style="font-size:11px;color:var(--text-muted);">High-fidelity mockup</span>
+                </div>
+                <span style="font-size:20px;color:var(--accent2);align-self:center;">→</span>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;min-width:140px;">
+                    <span style="font-size:28px;">✨</span>
+                    <strong style="font-size:13px;">Prototype</strong>
+                    <span style="font-size:11px;color:var(--text-muted);">Interactive mockup</span>
+                </div>
+                <span style="font-size:20px;color:var(--accent2);align-self:center;">→</span>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;min-width:140px;">
+                    <span style="font-size:28px;">💻</span>
+                    <strong style="font-size:13px;">Development</strong>
+                    <span style="font-size:11px;color:var(--text-muted);">Coding & implementation</span>
+                </div>
+                <span style="font-size:20px;color:var(--accent2);align-self:center;">→</span>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;min-width:140px;">
+                    <span style="font-size:28px;">🚀</span>
+                    <strong style="font-size:13px;">Launch</strong>
+                    <span style="font-size:11px;color:var(--text-muted);">Deploy & monitor</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="quick-links reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-bottom:50px;">
+            <a href="Dasboard.html" style="display:flex;align-items:center;gap:14px;padding:18px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;text-decoration:none;color:var(--text);transition:all 0.3s ease;">
+                <span style="font-size:24px;">📊</span>
+                <div>
+                    <h4 style="font-size:14px;font-weight:600;margin-bottom:2px;">Dashboard</h4>
+                    <p style="font-size:12px;color:var(--text-muted);">Kembali ke panel admin</p>
+                </div>
+            </a>
+            <a href="ai.html" style="display:flex;align-items:center;gap:14px;padding:18px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;text-decoration:none;color:var(--text);transition:all 0.3s ease;">
+                <span style="font-size:24px;">🤖</span>
+                <div>
+                    <h4 style="font-size:14px;font-weight:600;margin-bottom:2px;">AI Technology</h4>
+                    <p style="font-size:12px;color:var(--text-muted);">Platform AI interaktif</p>
+                </div>
+            </a>
+            <a href="webdevelopment.html" style="display:flex;align-items:center;gap:14px;padding:18px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;text-decoration:none;color:var(--text);transition:all 0.3s ease;">
+                <span style="font-size:24px;">💻</span>
+                <div>
+                    <h4 style="font-size:14px;font-weight:600;margin-bottom:2px;">Web Development</h4>
+                    <p style="font-size:12px;color:var(--text-muted);">Tech stack & coding</p>
+                </div>
+            </a>
+            <a href="#" style="display:flex;align-items:center;gap:14px;padding:18px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;text-decoration:none;color:var(--text);transition:all 0.3s ease;" onclick="showToast('📖 Blog & Tutorial segera hadir!');return false;">
+                <span style="font-size:24px;">📖</span>
+                <div>
+                    <h4 style="font-size:14px;font-weight:600;margin-bottom:2px;">Blog & Tutorial</h4>
+                    <p style="font-size:12px;color:var(--text-muted);">Belajar design dari nol</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Back Button -->
+        <a href="Dasboard.html" class="back-btn">← Kembali ke Dashboard</a>
+
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <span id="toastMsg">Notifikasi</span>
+    </div>
+
+    <script>
+        // ===== PARTICLES =====
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: null, y: null };
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random() * 0.5 + 0.1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (mouse.x !== null) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 120) {
+                        this.x -= dx * 0.01;
+                        this.y -= dy * 0.01;
+                    }
+                }
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(139, 92, 246, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = Math.min(80, Math.floor(window.innerWidth * window.innerHeight / 15000));
+            for (let i = 0; i < count; i++) particles.push(new Particle());
+        }
+        initParticles();
+
+        function connectParticles() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(139, 92, 246, ${0.08 * (1 - dist / 150)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            connectParticles();
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        document.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+        document.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+
+        // ===== REVEAL =====
+        const revealObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // ===== COPY HEX =====
+        document.querySelectorAll('.swatch').forEach(swatch => {
+            swatch.addEventListener('click', () => {
+                const hex = swatch.querySelector('.hex').textContent;
+                navigator.clipboard.writeText(hex).then(() => {
+                    showToast('🎨 Warna ' + hex + ' disalin ke clipboard!');
+                });
+            });
+        });
+
+        // ===== TOAST =====
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3500);
+        }
+
+        // Initial toast
+        setTimeout(() => showToast('🎨 Selamat datang di Web Design!'), 1000);
+    </script>
+
+</body>
+</html>

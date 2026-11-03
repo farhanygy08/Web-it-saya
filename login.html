@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Halaman Login</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #edf0f5, #38bbeafe);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.login-box {
+    background: rgba(45, 60, 180, 0.89);
+    width: 100%;
+    max-width: 380px;
+    padding: 35px 25px;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px #4a6ee6e5;
+}
+   h2 {
+    font-size: 35px;
+    text-align: center;
+    background: linear-gradient(90deg, white, yellow);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+   }
+
+
+.subtitle {
+    text-align: center;
+    margin-bottom: 30px;
+    background: linear-gradient(90deg, white, yellow);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.input-group {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #ecec4e;
+}
+
+input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #2563eb;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+.register {
+    text-align: center;
+    margin-top: 22px;
+    font-size: 14px;
+    color: gray;
+}
+
+.register a {
+    color: #2563eb;
+    text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="login-box">
+
+    <h2>Selamat Datang!</h2>
+    <p class="subtitle"><b>Silakan login ke akun anda</b></p>
+
+    <form id="loginForm">
+
+    <div class="input-group">
+        <label>Email</label>
+        <input
+            type="email"
+            id="email"
+            placeholder="Masukkan email"
+            required
+        >
+    </div>
+
+    <div class="input-group">
+        <label>Password</label>
+        <input
+            type="password"
+            id="password"
+            placeholder="Masukkan password"
+            required
+        >
+    </div>
+
+    <button type="submit">Login</button>
+
+</form>
+
+<p id="pesan"></p>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+
+    if (email === "admin@gmail.com" && password === "12345") {
+
+        window.location.href = "Dasboard.html";
+
+    } else {
+
+        document.getElementById("pesan").textContent =
+        "Email atau password salah!";
+
+    }
+
+});
+  </script>
+</div>
+
+
+
+</body>
+</html>

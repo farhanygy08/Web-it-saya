@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Development - AI Technology</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --accent: #06b6d4;
+            --accent2: #8b5cf6;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --bg-dark: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.7);
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.06);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ===== PARTICLES ===== */
+        #particles-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 14px 30px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-back {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-back:hover {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .nav-logo {
+            font-size: 18px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-right {
+            margin-left: auto;
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .nav-btn:hover {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--primary);
+        }
+
+        .nav-btn.primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            border: none;
+        }
+
+        /* ===== MAIN ===== */
+        .main {
+            position: relative;
+            z-index: 1;
+            padding: 100px 20px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ===== HERO ===== */
+        .page-hero {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .page-hero .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 50px;
+            font-size: 12px;
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .page-hero h1 {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 900;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .page-hero h1 .gradient {
+            background: linear-gradient(135deg, var(--primary), var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-hero p {
+            color: var(--text-muted);
+            font-size: 17px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ===== TECH GRID ===== */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 50px;
+        }
+
+        .tech-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .tech-card-header {
+            padding: 24px 28px;
+            background: rgba(59, 130, 246, 0.06);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .tech-card-header .icon {
+            font-size: 36px;
+        }
+
+        .tech-card-header h3 {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .tech-card-header .version {
+            margin-left: auto;
+            padding: 3px 10px;
+            background: rgba(34, 197, 94, 0.15);
+            border-radius: 6px;
+            font-size: 11px;
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .tech-card-body {
+            padding: 20px 28px;
+        }
+
+        .tech-card-body p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .tech-tag {
+            padding: 4px 10px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* ===== CODE BLOCK ===== */
+        .code-block {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            padding: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.8;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            position: relative;
+        }
+
+        .code-block .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 4px 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-muted);
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .code-block .copy-btn:hover {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--primary);
+        }
+
+        .code-block .keyword { color: #c084fc; }
+        .code-block .string { color: #86efac; }
+        .code-block .comment { color: #64748b; }
+        .code-block .func { color: #60a5fa; }
+        .code-block .number { color: #fbbf24; }
+
+        /* ===== ROADMAP ===== */
+        .roadmap {
+            margin-bottom: 50px;
+        }
+
+        .roadmap-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .roadmap-header h2 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .roadmap-header p {
+            color: var(--text-muted);
+        }
+
+        .roadmap-timeline {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .roadmap-timeline::before {
+            content: '';
+            position: absolute;
+            left: 24px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary), var(--accent2), transparent);
+        }
+
+        .roadmap-item {
+            position: relative;
+            padding-left: 64px;
+            margin-bottom: 32px;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.6s ease;
+        }
+
+        .roadmap-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .roadmap-dot {
+            position: absolute;
+            left: 16px;
+            top: 4px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--bg-dark);
+            border: 3px solid var(--primary);
+            z-index: 1;
+        }
+
+        .roadmap-item:nth-child(2) .roadmap-dot { border-color: var(--accent); }
+        .roadmap-item:nth-child(3) .roadmap-dot { border-color: var(--accent2); }
+        .roadmap-item:nth-child(4) .roadmap-dot { border-color: var(--success); }
+
+        .roadmap-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px 24px;
+        }
+
+        .roadmap-card .phase {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .roadmap-card h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .roadmap-card p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ===== COMPARISON TABLE ===== */
+        .comparison {
+            margin-bottom: 50px;
+        }
+
+        .comparison-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .comparison-header h2 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .comparison-table th {
+            padding: 16px 20px;
+            background: rgba(59, 130, 246, 0.1);
+            font-size: 14px;
+            font-weight: 700;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-table td {
+            padding: 14px 20px;
+            font-size: 13px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:hover td {
+            background: rgba(59, 130, 246, 0.03);
+        }
+
+        .check { color: var(--success); font-weight: 700; }
+        .cross { color: var(--danger); font-weight: 700; }
+
+        /* ===== QUICK LINKS ===== */
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 50px;
+        }
+
+        .quick-link {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 18px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .quick-link:hover {
+            transform: translateY(-4px);
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .quick-link .ql-icon {
+            font-size: 24px;
+        }
+
+        .quick-link h4 {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .quick-link p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ===== BACK BUTTON ===== */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .back-btn:hover {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: rgba(59, 130, 246, 0.3);
+            transform: translateX(-4px);
+        }
+
+        /* ===== REVEAL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            padding: 14px 20px;
+            background: rgba(30, 41, 59, 0.95);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 14px;
+            z-index: 3000;
+            transform: translateX(120%);
+            transition: transform 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .toast.show { transform: translateX(0); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .tech-grid { grid-template-columns: 1fr; }
+            .navbar { padding: 12px 16px; }
+            .main { padding: 90px 16px 40px; }
+            .comparison-table { font-size: 12px; }
+            .comparison-table th, .comparison-table td { padding: 10px 12px; }
+            .nav-right { display: none; }
+        }
+
+        @media (max-width: 480px) {
+            .page-hero h1 { font-size: 28px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="Dasboard.html" class="nav-back">← Dashboard</a>
+        <span class="nav-logo">💻 Web Development</span>
+        <div class="nav-right">
+            <button class="nav-btn" onclick="showToast('📖 Dokumentasi segera hadir!')">📖 Docs</button>
+            <button class="nav-btn primary" onclick="showToast('🚀 Deployment dimulai...')">🚀 Deploy</button>
+        </div>
+    </nav>
+
+    <div class="main">
+
+        <!-- Hero -->
+        <div class="page-hero reveal">
+            <span class="tag">Development</span>
+            <h1>Web <span class="gradient">Development</span> Modern</h1>
+            <p>Teknologi, tools, dan best practices untuk membangun website modern, cepat, dan scalable dengan AI-powered workflow.</p>
+        </div>
+
+        <!-- Tech Cards -->
+        <div class="tech-grid">
+
+            <div class="tech-card reveal">
+                <div class="tech-card-header">
+                    <span class="icon">⚛️</span>
+                    <h3>React.js</h3>
+                    <span class="version">v18.3</span>
+                </div>
+                <div class="tech-card-body">
+                    <p>Library JavaScript untuk membangun UI component-based yang powerful, reusable, dan scalable dengan ekosistem besar.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">JSX</span>
+                        <span class="tech-tag">Hooks</span>
+                        <span class="tech-tag">Redux</span>
+                        <span class="tech-tag">Next.js</span>
+                        <span class="tech-tag">Vite</span>
+                        <span class="tech-tag">React Router</span>
+                    </div>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+<span class="comment">// React Component dengan Hooks</span>
+<span class="keyword">import</span> { useState, useEffect } <span class="keyword">from</span> <span class="string">'react'</span>;
+
+<span class="keyword">function</span> <span class="func">AIChat</span>() {
+  <span class="keyword">const</span> [messages, setMessages] = <span class="func">useState</span>([]);
+  <span class="keyword">const</span> [input, setInput] = <span class="func">useState</span>(<span class="string">''</span>);
+
+  <span class="func">useEffect</span>(() => {
+    <span class="comment">// Fetch AI response</span>
+    <span class="func">fetch</span>(<span class="string">'/api/ai'</span>)
+      .<span class="func">then</span>(res => res.<span class="func">json</span>())
+      .<span class="func">then</span>(data => <span class="func">setMessages</span>([...messages, data]));
+  }, []);
+
+  <span class="keyword">return</span> (
+    &lt;<span class="keyword">div</span> className=<span class="string">"chat"</span>&gt;
+      {messages.<span class="func">map</span>((m, i) =&gt; (
+        &lt;<span class="keyword">div</span> key={i}&gt;{m.text}&lt;/<span class="keyword">div</span>&gt;
+      ))}
+      &lt;<span class="keyword">input</span> value={input} <span class="func">onChange</span>={e =&gt; <span class="func">setInput</span>(e.target.value)} /&gt;
+    &lt;/<span class="keyword">div</span>&gt;
+  );
+}
+                    </div>
+                </div>
+            </div>
+
+            <div class="tech-card reveal">
+                <div class="tech-card-header">
+                    <span class="icon">🐍</span>
+                    <h3>Python / FastAPI</h3>
+                    <span class="version">v3.12</span>
+                </div>
+                <div class="tech-card-body">
+                    <p>Backend framework modern untuk API dan service AI. Fast, async, dengan type hints otomatis.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">FastAPI</span>
+                        <span class="tech-tag">Flask</span>
+                        <span class="tech-tag">Django</span>
+                        <span class="tech-tag">NumPy</span>
+                        <span class="tech-tag">Pandas</span>
+                        <span class="tech-tag">TensorFlow</span>
+                    </div>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+<span class="comment"># FastAPI AI Service</span>
+<span class="keyword">from</span> fastapi <span class="keyword">import</span> FastAPI, HTTPException
+<span class="keyword">from</span> pydantic <span class="keyword">import</span> BaseModel
+
+app = <span class="func">FastAPI</span>(title=<span class="string">"AI Service"</span>)
+
+<span class="keyword">class</span> <span class="func">AIRequest</span>(BaseModel):
+    prompt: <span class="keyword">str</span>
+    model: <span class="keyword">str</span> = <span class="string">"gpt-4o-mini"</span>
+
+<span class="keyword">@app</span>.<span class="func">post</span>(<span class="string">"/api/ai/chat"</span>)
+<span class="keyword">async def</span> <span class="func">chat</span>(req: <span class="func">AIRequest</span>):
+    response = <span class="keyword">await</span> <span class="func">call_ai_model</span>(req.prompt, req.model)
+    <span class="keyword">return</span> {<span class="string">"response"</span>: response, <span class="string">"status"</span>: <span class="string">"ok"</span>}
+                    </div>
+                </div>
+            </div>
+
+            <div class="tech-card reveal">
+                <div class="tech-card-header">
+                    <span class="icon">🔷</span>
+                    <h3>TypeScript</h3>
+                    <span class="version">v5.4</span>
+                </div>
+                <div class="tech-card-body">
+                    <p>Type-safe JavaScript untuk kode yang lebih robust, maintainable, dan developer-friendly dengan tooling canggih.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Types</span>
+                        <span class="tech-tag">Interfaces</span>
+                        <span class="tech-tag">Generics</span>
+                        <span class="tech-tag">Decors</span>
+                        <span class="tech-tag">NestJS</span>
+                        <span class="tech-tag">Prisma</span>
+                    </div>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+<span class="comment">// TypeScript Interface</span>
+<span class="keyword">interface</span> <span class="func">AIResponse</span> {
+  <span class="func">status</span>: <span class="string">'success'</span> | <span class="string">'error'</span>;
+  <span class="func">data</span>: <span class="keyword">string</span>;
+  <span class="func">timestamp</span>: <span class="keyword">number</span>;
+  <span class="func">model</span>: <span class="keyword">string</span>;
+}
+
+<span class="keyword">async function</span> <span class="func">getAIResponse</span>(
+  prompt: <span class="keyword">string</span>,
+  model: <span class="keyword">string</span>
+): <span class="keyword">Promise</span>&lt;<span class="func">AIResponse</span>&gt; {
+  <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="func">fetch</span>(<span class="string">'/api/ai'</span>, {
+    method: <span class="string">'POST'</span>,
+    body: JSON.<span class="func">stringify</span>({ prompt, model })
+  });
+  <span class="keyword">return</span> res.<span class="func">json</span>();
+}
+                    </div>
+                </div>
+            </div>
+
+            <div class="tech-card reveal">
+                <div class="tech-card-header">
+                    <span class="icon">🗄️</span>
+                    <h3>Database & Storage</h3>
+                    <span class="version">v16</span>
+                </div>
+                <div class="tech-card-body">
+                    <p>Database solutions untuk menyimpan, mengelola, dan mengakses data secara efisien dan scalable.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">Redis</span>
+                        <span class="tech-tag">Firebase</span>
+                        <span class="tech-tag">Supabase</span>
+                        <span class="tech-tag">Prisma</span>
+                    </div>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+<span class="comment">// Prisma Schema</span>
+<span class="keyword">model</span> <span class="func">User</span> {
+  id        <span class="func">Int</span>      <span class="keyword">@id</span> <span class="keyword">@default</span>(<span class="func">autoincrement</span>())
+  email     <span class="func">String</span>   <span class="keyword">@unique</span>
+  name      <span class="func">String</span>
+  role      <span class="func">String</span>   <span class="keyword">@default</span>(<span class="string">"user"</span>)
+  createdAt <span class="func">DateTime</span> <span class="keyword">@default</span>(<span class="func">now</span>())
+  posts     <span class="func">Post</span>[]
+}
+
+<span class="comment">// Query</span>
+<span class="keyword">const</span> users = <span class="keyword">await</span> prisma.user.<span class="func">findMany</span>({
+  <span class="keyword">where</span>: { role: <span class="string">"admin"</span> },
+  <span class="keyword">select</span>: { email: <span class="keyword">true</span>, name: <span class="keyword">true</span> }
+});
+                    </div>
+                </div>
+            </div>
+
+            <div class="tech-card reveal">
+                <div class="tech-card-header">
+                    <span class="icon">☁️</span>
+                    <h3>Cloud & DevOps</h3>
+                    <span class="version">v2.0</span>
+                </div>
+                <div class="tech-card-body">
+                    <p>Cloud infrastructure untuk deployment, scaling, monitoring, dan CI/CD pipeline otomatis.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">AWS</span>
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">Kubernetes</span>
+                        <span class="tech-tag">CI/CD</span>
+                        <span class="tech-tag">GitHub Actions</span>
+                        <span class="tech-tag">Vercel</span>
+                    </div>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+<span class="comment"># Dockerfile</span>
+<span class="keyword">FROM</span> node:<span class="number">20</span>-alpine
+<span class="keyword">WORKDIR</span> /app
+<span class="keyword">COPY</span> package*.json ./
+<span class="keyword">RUN</span> npm ci --only=production
+<span class="keyword">COPY</span> . .
+<span class="keyword">EXPOSE</span> <span class="number">3000</span>
+<span class="keyword">HEALTHCHECK</span> CMD wget -q --spider http://localhost:<span class="number">3000</span>/health
+<span class="keyword">CMD</span> [<span class="string">"node"</span>, <span class="string">"server.js"</span>]
+
+<span class="comment"># docker-compose.yml</span>
+<span class="keyword">version</span>: <span class="string">'3.8'</span>
+<span class="keyword">services</span>:
+  app:
+    build: .
+    ports: [<span class="string">"3000:3000"</span>]
+    depends_on: [db, redis]
+  db:
+    image: postgres:<span class="number">16</span>
+  redis:
+    image: redis:<span class="number">7</span>-alpine
+                    </div>
+                </div>
+            </div>
+
+            <div class="tech-card reveal">
+                <div class="tech-card-header">
+                    <span class="icon">🔒</span>
+                    <h3>Security</h3>
+                    <span class="version">v3.0</span>
+                </div>
+                <div class="tech-card-body">
+                    <p>Keamanan aplikasi dengan autentikasi, enkripsi, rate limiting, dan proteksi data end-to-end.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">JWT</span>
+                        <span class="tech-tag">OAuth 2.0</span>
+                        <span class="tech-tag">SSL/TLS</span>
+                        <span class="tech-tag">CSP</span>
+                        <span class="tech-tag">Helmet</span>
+                        <span class="tech-tag">CORS</span>
+                    </div>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+<span class="comment">// JWT Authentication Middleware</span>
+<span class="keyword">const</span> <span class="func">authenticate</span> = (<span class="func">req</span>, <span class="func">res</span>, <span class="func">next</span>) => {
+  <span class="keyword">const</span> token = <span class="func">req</span>.headers[<span class="string">'authorization'</span>]
+    .<span class="func">split</span>(<span class="string">' '</span>)[<span class="number">1</span>];
+
+  <span class="keyword">try</span> {
+    <span class="keyword">const</span> decoded = jwt.<span class="func">verify</span>(
+      token, process.env.<span class="func">SECRET</span>
+    );
+    <span class="func">req</span>.user = decoded;
+    <span class="func">next</span>();
+  } <span class="keyword">catch</span> (err) {
+    <span class="func">res</span>.<span class="func">status</span>(<span class="number">401</span>).<span class="func">json</span>({
+      error: <span class="string">'Unauthorized'</span>
+    });
+  }
+};
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Roadmap -->
+        <div class="roadmap reveal">
+            <div class="roadmap-header">
+                <h2>🗺️ Roadmap Development</h2>
+                <p>Perencanaan dan timeline pengembangan platform AI Technology</p>
+            </div>
+            <div class="roadmap-timeline">
+                <div class="roadmap-item">
+                    <div class="roadmap-dot"></div>
+                    <div class="roadmap-card">
+                        <div class="phase">Phase 1 - Foundation</div>
+                        <h4>🏗️ Base Architecture</h4>
+                        <p>Membangun core architecture: React frontend, FastAPI backend, PostgreSQL database, dan Docker containerization.</p>
+                    </div>
+                </div>
+                <div class="roadmap-item">
+                    <div class="roadmap-dot"></div>
+                    <div class="roadmap-card">
+                        <div class="phase">Phase 2 - AI Integration</div>
+                        <h4>🤖 AI Features</h4>
+                        <p>Integrasi AI models: Chatbot, NLP processing, computer vision, dan predictive analytics engine.</p>
+                    </div>
+                </div>
+                <div class="roadmap-item">
+                    <div class="roadmap-dot"></div>
+                    <div class="roadmap-card">
+                        <div class="phase">Phase 3 - Scale</div>
+                        <h4>📈 Scaling & Performance</h4>
+                        <p>Optimasi performa: CDN, caching, load balancing, auto-scaling, dan monitoring real-time.</p>
+                    </div>
+                </div>
+                <div class="roadmap-item">
+                    <div class="roadmap-dot"></div>
+                    <div class="roadmap-card">
+                        <div class="phase">Phase 4 - Advanced</div>
+                        <h4>🚀 Advanced Features</h4>
+                        <p>AI agents otonom, multi-modal processing, voice AI, dan marketplace integrations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="comparison reveal">
+            <div class="comparison-header">
+                <h2>📊 Tech Stack Comparison</h2>
+                <p>Perbandingan teknologi untuk berbagai kebutuhan development</p>
+            </div>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Fitur</th>
+                        <th>React</th>
+                        <th>Vue</th>
+                        <th>Angular</th>
+                        <th>Svelte</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Learning Curve</strong></td>
+                        <td><span class="check">Mudah</span></td>
+                        <td><span class="check">Mudah</span></td>
+                        <td><span class="cross">Sulit</span></td>
+                        <td><span class="check">Mudah</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Performance</strong></td>
+                        <td>⭐⭐⭐⭐</td>
+                        <td>⭐⭐⭐⭐</td>
+                        <td>⭐⭐⭐</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Community</strong></td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                        <td>⭐⭐⭐⭐</td>
+                        <td>⭐⭐⭐⭐</td>
+                        <td>⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TypeScript Support</strong></td>
+                        <td><span class="check">Native</span></td>
+                        <td><span class="check">Native</span></td>
+                        <td><span class="check">Native</span></td>
+                        <td><span class="check">Native</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>AI Integration</strong></td>
+                        <td><span class="check">Excellent</span></td>
+                        <td><span class="check">Good</span></td>
+                        <td><span class="check">Good</span></td>
+                        <td><span class="check">Good</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Best For</strong></td>
+                        <td>Large Apps</td>
+                        <td>Medium Apps</td>
+                        <td>Enterprise</td>
+                        <td>Small/Medium</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="quick-links reveal">
+            <a class="quick-link" href="Dasboard.html">
+                <span class="ql-icon">📊</span>
+                <div>
+                    <h4>Dashboard</h4>
+                    <p>Kembali ke panel admin</p>
+                </div>
+            </a>
+            <a class="quick-link" href="ai.html">
+                <span class="ql-icon">🤖</span>
+                <div>
+                    <h4>AI Technology</h4>
+                    <p>Platform AI interaktif</p>
+                </div>
+            </a>
+            <a class="quick-link" href="#">
+                <span class="ql-icon"></span>
+                <div>
+                    <h4>Blog & Tutorial</h4>
+                    <p>Pelajari web development</p>
+                </div>
+            </a>
+            <a class="quick-link" href="#">
+                <span class="ql-icon"></span>
+                <div>
+                    <h4>API Documentation</h4>
+                    <p>Dokumentasi API lengkap</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Back Button -->
+        <a href="Dasboard.html" class="back-btn">← Kembali ke Dashboard</a>
+
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <span id="toastMsg">Notifikasi</span>
+    </div>
+
+    <script>
+        // ===== PARTICLES =====
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: null, y: null };
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random() * 0.5 + 0.1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (mouse.x !== null) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 120) {
+                        this.x -= dx * 0.01;
+                        this.y -= dy * 0.01;
+                    }
+                }
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(59, 130, 246, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = Math.min(80, Math.floor(window.innerWidth * window.innerHeight / 15000));
+            for (let i = 0; i < count; i++) particles.push(new Particle());
+        }
+        initParticles();
+
+        function connectParticles() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(59, 130, 246, ${0.08 * (1 - dist / 150)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            connectParticles();
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        document.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+        document.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+
+        // ===== REVEAL =====
+        const revealObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.reveal, .roadmap-item').forEach(el => revealObserver.observe(el));
+
+        // ===== COPY CODE =====
+        function copyCode(btn) {
+            const codeBlock = btn.parentElement;
+            const text = codeBlock.innerText.replace('📋 Copy', '').trim();
+            navigator.clipboard.writeText(text).then(() => {
+                btn.textContent = '✅ Copied!';
+                setTimeout(() => btn.textContent = '📋 Copy', 2000);
+                showToast('📋 Kode berhasil disalin!');
+            });
+        }
+
+        // ===== TOAST =====
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3500);
+        }
+
+        // Initial toast
+        setTimeout(() => showToast('💻 Selamat datang di Web Development!'), 1000);
+    </script>
+
+</body>
+</html>

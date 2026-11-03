@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Technology - Platform Cerdas Masa Depan</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --accent: #06b6d4;
+            --accent2: #8b5cf6;
+            --bg-dark: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.7);
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --glow: rgba(59, 130, 246, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ===== PARTICLE CANVAS ===== */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 10px 30px;
+            background: rgba(15, 23, 42, 0.95);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+        }
+
+        .nav-logo .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary), var(--accent2));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            -webkit-text-fill-color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #fff;
+            background: rgba(59, 130, 246, 0.15);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 2px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .nav-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 20px 80px;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at 30% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+                        radial-gradient(ellipse at 70% 50%, rgba(139, 92, 246, 0.06) 0%, transparent 50%);
+            animation: heroGlow 15s ease-in-out infinite alternate;
+        }
+
+        @keyframes heroGlow {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-5%, 5%) rotate(3deg); }
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 50px;
+            font-size: 13px;
+            color: var(--accent);
+            margin-bottom: 24px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .hero-badge .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.5); }
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 7vw, 64px);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: gradientShift 5s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero p {
+            font-size: clamp(16px, 2.5vw, 19px);
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 36px;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 60px;
+            animation: fadeInUp 0.8s ease 0.8s both;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat .number {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-stat .label {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* ===== SECTION COMMON ===== */
+        section {
+            position: relative;
+            z-index: 1;
+            padding: 80px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 16px;
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 50px;
+            font-size: 12px;
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        /* ===== FEATURES SECTION ===== */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 32px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 40px rgba(59, 130, 246, 0.1);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        .feature-icon.blue { background: rgba(59, 130, 246, 0.15); }
+        .feature-icon.cyan { background: rgba(6, 182, 212, 0.15); }
+        .feature-icon.purple { background: rgba(139, 92, 246, 0.15); }
+        .feature-icon.green { background: rgba(34, 197, 94, 0.15); }
+        .feature-icon.orange { background: rgba(249, 115, 22, 0.15); }
+        .feature-icon.pink { background: rgba(236, 72, 153, 0.15); }
+
+        .feature-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* ===== AI DEMO / CHAT SECTION ===== */
+        .demo-section {
+            background: linear-gradient(180deg, transparent, rgba(59, 130, 246, 0.03), transparent);
+        }
+
+        .demo-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .demo-header {
+            padding: 20px 24px;
+            background: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .demo-header .status-dot {
+            width: 10px;
+            height: 10px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .demo-header span {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .demo-header .model-tag {
+            margin-left: auto;
+            padding: 4px 10px;
+            background: rgba(59, 130, 246, 0.15);
+            border-radius: 6px;
+            font-size: 11px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .chat-area {
+            padding: 24px;
+            min-height: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .chat-area::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .chat-area::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .chat-area::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .message {
+            display: flex;
+            gap: 12px;
+            animation: messageIn 0.4s ease;
+        }
+
+        @keyframes messageIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .message.ai .message-avatar {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+
+        .message.user .message-avatar {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .message-bubble {
+            padding: 12px 16px;
+            border-radius: 14px;
+            font-size: 14px;
+            line-height: 1.6;
+            max-width: 85%;
+        }
+
+        .message.ai .message-bubble {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            border-top-left-radius: 4px;
+        }
+
+        .message.user .message-bubble {
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-top-right-radius: 4px;
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 12px 16px;
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: var(--text-muted);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-6px); opacity: 1; }
+        }
+
+        .chat-input-area {
+            padding: 16px 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+        }
+
+        .chat-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .chat-send {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-send:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        /* ===== TECH STACK SECTION ===== */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .tech-item {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tech-item:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .tech-item .tech-emoji {
+            font-size: 36px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .tech-item h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .tech-item p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .tech-item .tech-bar {
+            margin-top: 12px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .tech-item .tech-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 1.5s ease;
+            width: 0;
+        }
+
+        .tech-item.visible .tech-bar-fill {
+            width: var(--fill);
+        }
+
+        /* ===== TIMELINE SECTION ===== */
+        .timeline {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary), var(--accent2), transparent);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 56px;
+            margin-bottom: 36px;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.6s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 12px;
+            top: 4px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--bg-dark);
+            border: 3px solid var(--primary);
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(2) .timeline-dot { border-color: var(--accent); }
+        .timeline-item:nth-child(3) .timeline-dot { border-color: var(--accent2); }
+        .timeline-item:nth-child(4) .timeline-dot { border-color: #22c55e; }
+
+        .timeline-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 20px 24px;
+        }
+
+        .timeline-card .year {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+
+        .timeline-card h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .timeline-card p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .cta-box {
+            max-width: 700px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 24px;
+            padding: 50px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1), transparent 70%);
+            animation: ctaGlow 8s ease infinite;
+        }
+
+        @keyframes ctaGlow {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-20%, 20%); }
+        }
+
+        .cta-box h2 {
+            font-size: clamp(24px, 4vw, 36px);
+            font-weight: 800;
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .cta-box p {
+            color: var(--text-muted);
+            margin-bottom: 28px;
+            position: relative;
+        }
+
+        .cta-box .btn {
+            position: relative;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            position: relative;
+            z-index: 1;
+            padding: 40px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            font-size: 13px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== BACK TO TOP ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 999;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
+        }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 32px;
+            max-width: 500px;
+            width: 100%;
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.95) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .modal h3 {
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+
+        .modal p {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .modal-close {
+            float: right;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: #fff;
+        }
+
+        /* ===== TOAST NOTIFICATION ===== */
+        .toast {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            padding: 14px 20px;
+            background: rgba(30, 41, 59, 0.95);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 14px;
+            z-index: 3000;
+            transform: translateX(120%);
+            transition: transform 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: rgba(15, 23, 42, 0.98);
+                padding: 16px;
+                border-bottom: 1px solid rgba(59, 130, 246, 0.15);
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .hero-stats {
+                gap: 20px;
+            }
+
+            .hero-stat .number {
+                font-size: 24px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Particle Canvas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-logo" onclick="scrollToTop()">
+            <div class="logo-icon">🤖</div>
+            <span>AI Technology</span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#hero" class="active" data-section="hero">Beranda</a></li>
+            <li><a href="#features" data-section="features">Fitur</a></li>
+            <li><a href="#demo" data-section="demo">Demo AI</a></li>
+            <li><a href="#tech" data-section="tech">Teknologi</a></li>
+            <li><a href="#timeline" data-section="timeline">Riwayat</a></li>
+            <li><a href="#contact" data-section="contact">Kontak</a></li>
+        </ul>
+        <div class="nav-toggle" id="navToggle" onclick="toggleNav()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="pulse-dot"></span>
+                Platform AI Terdepan di Indonesia
+            </div>
+            <h1>
+                Masa Depan <span class="gradient-text">Kecerdasan Buatan</span> Dimulai Dari Sini
+            </h1>
+            <p>
+                Jelajahi dunia AI yang powerful dengan tools canggih untuk automasi, analisis data,
+                dan inovasi digital. Dikembangkan untuk masa depan yang lebih pintar.
+            </p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="scrollToSection('demo')">
+                    🚀 Coba Demo AI
+                </button>
+                <button class="btn btn-secondary" onclick="openModal()">
+                    ℹ️ Pelajari Lebih Lanjut
+                </button>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="number" data-target="15000">0</div>
+                    <div class="label">Pengguna Aktif</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="number" data-target="500">0</div>
+                    <div class="label">Model AI</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="number" data-target="99">0</div>
+                    <div class="label">Uptime %</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">Fitur Unggulan</span>
+                <h2>Semua Yang Anda Butuhkan</h2>
+                <p>Tools AI lengkap untuk berbagai kebutuhan, dari automasi hingga analisis canggih</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card reveal">
+                    <div class="feature-icon blue">🧠</div>
+                    <h3>Natural Language Processing</h3>
+                    <p>Analisis dan pemahaman bahasa alami dengan akurasi tinggi. Support 50+ bahasa termasuk Bahasa Indonesia.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon cyan">👁️</div>
+                    <h3>Computer Vision</h3>
+                    <p>Identifikasi objek, deteksi wajah, dan analisis gambar real-time dengan model deep learning.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon purple">⚡</div>
+                    <h3>Automasi Cerdas</h3>
+                    <p>Otomatiskan workflow bisnis Anda dengan AI yang belajar dari pola dan membuat keputusan cerdas.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon green">📊</div>
+                    <h3>Predictive Analytics</h3>
+                    <p>Prediksi tren dan pola data dengan akurasi hingga 95%. Data-driven decision making.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon orange">🔊</div>
+                    <h3>Speech & Voice AI</h3>
+                    <p>Text-to-speech natural, speech-to-text akurat, dan voice recognition multi-bahasa.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon pink">🛡️</div>
+                    <h3>AI Security</h3>
+                    <p>Deteksi ancaman, fraud detection, dan proteksi data dengan machine learning real-time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo / Chat Section -->
+    <section class="demo-section" id="demo">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">Live Demo</span>
+                <h2>Coba Chatbot AI Kami</h2>
+                <p>Ketik pertanyaan apa saja dan lihat kecerdasan AI kami merespons</p>
+            </div>
+            <div class="demo-container reveal">
+                <div class="demo-header">
+                    <div class="status-dot"></div>
+                    <span>AI Assistant</span>
+                    <span class="model-tag">GPT-4o Mini</span>
+                </div>
+                <div class="chat-area" id="chatArea">
+                    <div class="message ai">
+                        <div class="message-avatar">🤖</div>
+                        <div class="message-bubble">
+                            Halo! 👋 Saya AI Assistant. Saya bisa membantu Anda dengan berbagai pertanyaan tentang teknologi AI. Coba ketik sesuatu di bawah ini!
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" class="chat-input" id="chatInput" placeholder="Ketik pesan Anda..." onkeypress="handleKeyPress(event)">
+                    <button class="chat-send" onclick="sendMessage()">➤</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section id="tech">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">Teknologi</span>
+                <h2>Tech Stack Kami</h2>
+                <p>Dibangun dengan teknologi terdepan untuk performa dan skalabilitas optimal</p>
+            </div>
+            <div class="tech-grid">
+                <div class="tech-item reveal">
+                    <span class="tech-emoji">🐍</span>
+                    <h4>Python</h4>
+                    <p>Backend & ML</p>
+                    <div class="tech-bar"><div class="tech-bar-fill" style="--fill: 95%"></div></div>
+                </div>
+                <div class="tech-item reveal">
+                    <span class="tech-emoji">⚛️</span>
+                    <h4>React</h4>
+                    <p>Frontend UI</p>
+                    <div class="tech-bar"><div class="tech-bar-fill" style="--fill: 90%"></div></div>
+                </div>
+                <div class="tech-item reveal">
+                    <span class="tech-emoji">🧮</span>
+                    <h4>TensorFlow</h4>
+                    <p>Deep Learning</p>
+                    <div class="tech-bar"><div class="tech-bar-fill" style="--fill: 88%"></div></div>
+                </div>
+                <div class="tech-item reveal">
+                    <span class="tech-emoji">☁️</span>
+                    <h4>AWS</h4>
+                    <p>Cloud Infrastructure</p>
+                    <div class="tech-bar"><div class="tech-bar-fill" style="--fill: 92%"></div></div>
+                </div>
+                <div class="tech-item reveal">
+                    <span class="tech-emoji">🐳</span>
+                    <h4>Docker</h4>
+                    <p>Containerization</p>
+                    <div class="tech-bar"><div class="tech-bar-fill" style="--fill: 85%"></div></div>
+                </div>
+                <div class="tech-item reveal">
+                    <span class="tech-emoji">🗄️</span>
+                    <h4>PostgreSQL</h4>
+                    <p>Database</p>
+                    <div class="tech-bar"><div class="tech-bar-fill" style="--fill: 87%"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section id="timeline">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">Riwayat</span>
+                <h2>Perjalanan AI</h2>
+                <p>Evolution artificial intelligence dari masa ke masa</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="year">2023</div>
+                        <h4>🌱 Era Generative AI</h4>
+                        <p>ChatGPT dan model generatif meledak popularitas. AI mulai digunakan secara massal untuk konten, coding, dan automasi.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="year">2024</div>
+                        <h4>🧠 Multimodal AI</h4>
+                        <p>AI mampu memahami teks, gambar, audio, dan video secara bersamaan. GPT-4o dan Gemini membuka era baru.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="year">2025</div>
+                        <h4>🤖 AI Agents</h4>
+                        <p>AI agent yang bisa melakukan tugas kompleks secara otonom. Autonomous coding, research, dan workflow management.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="year">2026+</div>
+                        <h4>🚀 AGI Horizon</h4>
+                        <p>Mendekati Artificial General Intelligence. AI yang bisa berpikir, belajar, dan beradaptasi seperti manusia.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact">
+        <div class="cta-box reveal">
+            <h2>Siap Memulai Perjalanan AI Anda?</h2>
+            <p>Bergabung dengan 15.000+ pengguna yang sudah merasakan kekuatan AI teknologi kami</p>
+            <button class="btn btn-primary" onclick="showToast('🎉 Terima kasih! Anda akan segera menerima email invitation.')">
+                🚀 Mulai Sekarang - Gratis!
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="#hero">Beranda</a>
+            <a href="#features">Fitur</a>
+            <a href="#demo">Demo</a>
+            <a href="#tech">Teknologi</a>
+            <a href="#timeline">Riwayat</a>
+            <a href="#" onclick="openModal(); return false;">Tentang</a>
+        </div>
+        <p>© 2025 AI Technology. Dibuat dengan ❤️ di Indonesia. All rights reserved.</p>
+    </footer>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModalDirect()">✕</button>
+            <h3>🤖 Tentang AI Technology</h3>
+            <p>
+                AI Technology adalah platform terdepan di Indonesia yang menyediakan solusi kecerdasan buatan
+                untuk berbagai kebutuhan. Dari automasi bisnis, analisis data, hingga development aplikasi AI.
+            </p>
+            <p>
+                Kami menggunakan model-model AI terbaru seperti GPT-4o, Claude, Gemini, dan model open-source
+                untuk memberikan layanan terbaik kepada pengguna kami.
+            </p>
+            <button class="btn btn-primary" onclick="closeModalDirect(); showToast('✅ Data tersimpan!')">
+                ✅ Tutup & Simpan
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <span id="toastIcon">✅</span>
+        <span id="toastMsg">Notifikasi</span>
+    </div>
+
+    <script>
+        // ===== PARTICLE SYSTEM =====
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: null, y: null };
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random() * 0.5 + 0.1;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+
+                if (mouse.x !== null) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 120) {
+                        this.x -= dx * 0.01;
+                        this.y -= dy * 0.01;
+                    }
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(59, 130, 246, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = Math.min(80, Math.floor(window.innerWidth * window.innerHeight / 15000));
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        }
+        initParticles();
+
+        function connectParticles() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(59, 130, 246, ${0.08 * (1 - dist / 150)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            connectParticles();
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        document.addEventListener('mousemove', e => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        document.addEventListener('mouseleave', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        // ===== NAVBAR SCROLL =====
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            const backToTop = document.getElementById('backToTop');
+
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            if (window.scrollY > 400) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+
+            const sections = document.querySelectorAll('section[id]');
+            let current = '';
+            sections.forEach(section => {
+                const top = section.offsetTop - 100;
+                if (window.scrollY >= top) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('data-section') === current) {
+                    a.classList.add('active');
+                }
+            });
+        });
+
+        // ===== MOBILE NAV =====
+        function toggleNav() {
+            document.getElementById('navLinks').classList.toggle('open');
+        }
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('open');
+            });
+        });
+
+        // ===== SCROLL TO =====
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ===== COUNTER ANIMATION =====
+        function animateCounters() {
+            document.querySelectorAll('.hero-stat .number').forEach(el => {
+                const target = parseInt(el.getAttribute('data-target'));
+                const duration = 2000;
+                const start = performance.now();
+
+                function update(now) {
+                    const progress = Math.min((now - start) / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const current = Math.floor(eased * target);
+
+                    if (target >= 1000) {
+                        el.textContent = (current / 1000).toFixed(current >= target ? 0 : 1) + 'K+';
+                    } else if (target === 99) {
+                        el.textContent = current + '%';
+                    } else {
+                        el.textContent = current + '+';
+                    }
+
+                    if (progress < 1) requestAnimationFrame(update);
+                }
+                requestAnimationFrame(update);
+            });
+        }
+
+        let counterStarted = false;
+        const heroObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !counterStarted) {
+                    counterStarted = true;
+                    animateCounters();
+                }
+            });
+        }, { threshold: 0.5 });
+        heroObserver.observe(document.getElementById('hero'));
+
+        // ===== REVEAL ANIMATIONS =====
+        const revealObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.reveal, .timeline-item, .tech-item').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // ===== CHATBOT =====
+        const aiResponses = {
+            'halo': 'Halo juga! 👋 Senang bertemu dengan Anda. Ada yang bisa saya bantu hari ini?',
+            'hai': 'Hai! 😊 Saya siap membantu Anda. Tanyakan apa saja tentang AI!',
+            'apa itu ai': 'AI (Artificial Intelligence) atau Kecerdasan Buatan adalah teknologi yang memungkinkan komputer meniru kemampuan manusia seperti belajar, berpikir, dan mengambil keputusan. AI mencakup machine learning, deep learning, NLP, dan banyak lagi! 🧠',
+            'machine learning': 'Machine Learning (ML) adalah subset AI di mana sistem belajar dari data tanpa diprogram secara eksplisit. Jenis-jenisnya: Supervised Learning, Unsupervised Learning, dan Reinforcement Learning. 📊',
+            'deep learning': 'Deep Learning menggunakan neural networks dengan banyak layer untuk memproses data kompleks. Digunakan untuk computer vision, NLP, speech recognition, dan banyak aplikasi lainnya! 🌐',
+            'chatgpt': 'ChatGPT adalah model bahasa AI dari OpenAI yang bisa conversa, menulis kode, analisis teks, dan banyak lagi. Versi terbaru GPT-4o bisa memproses teks, gambar, dan audio! 🤖',
+            'python': 'Python adalah bahasa pemrograman paling populer untuk AI/ML. Library seperti TensorFlow, PyTorch, scikit-learn, dan Hugging Face membuat development AI jadi lebih mudah! ',
+            'data science': 'Data Science adalah ilmu yang menggabungkan statistika, pemrograman, dan domain knowledge untuk mengekstrak insights dari data. Tools utamanya: Python, R, SQL, dan big data frameworks! 📈',
+            'robotik': 'Robotik menggabungkan AI dengan hardware fisik. Robot modern menggunakan computer vision, natural language processing, dan reinforcement learning untuk berinteraksi dengan lingkungan! 🤖',
+            'masa depan': 'Masa depan AI sangat cerah! Kita akan melihat AI agents otonom, AGI (Artificial General Intelligence), AI yang terintegrasi di semua aspek kehidupan, dan revolusi di setiap industri! 🚀',
+            'terima kasih': 'Sama-sama! 😊 Senang bisa membantu. Jangan ragu untuk bertanya lagi kapan saja!',
+            'default': [
+                'Pertanyaan menarik! 🤔 AI adalah bidang yang sangat luas. Apakah Anda ingin tahu lebih tentang machine learning, deep learning, atau aplikasi AI lainnya?',
+                'Terima kasih atas pertanyaannya! 😊 Saya bisa membantu dengan topik seperti NLP, computer vision, automasi AI, atau teknologi AI lainnya. Mau tahu lebih detail?',
+                'Hmm, itu pertanyaan bagus! 💡 Mari kita bahas bersama. AI terus berkembang pesat, ada banyak hal menarik untuk dieksplorasi. Ada yang spesifik yang ingin Anda tanyakan?',
+                'Saya suka pertanyaan seperti ini! 🌟 AI adalah teknologi yang paling transformasional di abad ini. Coba tanyakan tentang model AI, aplikasi, atau cara memulai belajar AI!'
+            ]
+        };
+
+        function getAIResponse(input) {
+            const lower = input.toLowerCase().trim();
+
+            if (aiResponses[lower]) return aiResponses[lower];
+
+            const keywords = {
+                'halo|hai|hello|hi': 'halo',
+                'apa|apa itu|what is|arti|definis': 'apa itu ai',
+                'machine learning|ml|belajar mesin': 'machine learning',
+                'deep learning|neural network': 'deep learning',
+                'chatgpt|openai|gpt': 'chatgpt',
+                'python': 'python',
+                'data science|data analyst': 'data science',
+                'robot|robotik|robotics': 'robotik',
+                'masa depan|future|prospek': 'masa depan',
+                'terima kasih|thanks|makasih': 'terima kasih'
+            };
+
+            for (const [keys, value] of Object.entries(keywords)) {
+                if (new RegExp(keys, 'i').test(lower)) {
+                    return aiResponses[value];
+                }
+            }
+
+            const defaults = aiResponses['default'];
+            return defaults[Math.floor(Math.random() * defaults.length)];
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            const chatArea = document.getElementById('chatArea');
+
+            const userMsg = document.createElement('div');
+            userMsg.className = 'message user';
+            userMsg.innerHTML = `
+                <div class="message-avatar">👤</div>
+                <div class="message-bubble">${escapeHtml(message)}</div>
+            `;
+            chatArea.appendChild(userMsg);
+            input.value = '';
+
+            const typing = document.createElement('div');
+            typing.className = 'message ai';
+            typing.id = 'typingIndicator';
+            typing.innerHTML = `
+                <div class="message-avatar">🤖</div>
+                <div class="message-bubble">
+                    <div class="typing-indicator">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+            `;
+            chatArea.appendChild(typing);
+            chatArea.scrollTop = chatArea.scrollHeight;
+
+            setTimeout(() => {
+                typing.remove();
+                const aiMsg = document.createElement('div');
+                aiMsg.className = 'message ai';
+                const response = getAIResponse(message);
+                aiMsg.innerHTML = `
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-bubble">${response}</div>
+                `;
+                chatArea.appendChild(aiMsg);
+                chatArea.scrollTop = chatArea.scrollHeight;
+            }, 800 + Math.random() * 1200);
+        }
+
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') sendMessage();
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ===== MODAL =====
+        function openModal() {
+            document.getElementById('modalOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(e) {
+            if (e.target === document.getElementById('modalOverlay')) {
+                closeModalDirect();
+            }
+        }
+
+        function closeModalDirect() {
+            document.getElementById('modalOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // ===== TOAST =====
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3500);
+        }
+
+        // ===== SMOOTH SCROLL =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // ===== FEATURE CARD TILT =====
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+
+        // ===== KEYBOARD SHORTCUTS =====
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModalDirect();
+            }
+        });
+
+        // Initial toast
+        setTimeout(() => {
+            showToast('👋 Selamat datang di AI Technology!');
+        }, 1500);
+    </script>
+
+</body>
+</html>
