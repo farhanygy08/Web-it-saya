@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kotak Chat AI Sederhana</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            height: 90vh;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        /* Kotak tempat pesan chat muncul */
+        #chat-container {
+            flex: 1;
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            overflow-y: auto;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        /* Desain gelembung chat */
+        .message {
+            padding: 10px 15px;
+            border-radius: 10px;
+            max-width: 80%;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+        .user-message {
+            background-color: #007bff;
+            color: white;
+            align-self: flex-end;
+        }
+        .ai-message {
+            background-color: #e9ecef;
+            color: #333;
+            align-self: flex-start;
+        }
+        /* Bagian bawah untuk ngetik pesan */
+        #input-container {
+            display: flex;
+            gap: 10px;
+        }
+        #user-input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:active {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>🤖 Chat Asisten AI</h2>
+
+    <!-- Area Tampilan Chat -->
+    <div id="chat-container">
+        <div class="message ai-message">Halo! Ada yang bisa aku bantu hari ini?</div>
+    </div>
+
+    <!-- Area Input Pesan -->
+    <div id="input-container">
+        <input type="text" id="user-input" placeholder="Tulis pesan atau tanya sesuatu..." onkeypress="handleKeyPress(event)">
+        <button onclick="kirimPesan()">Kirim</button>
+    </div>
+
+    <script>
+        // ⚠️ MASUKKAN API KEY GEMINI KAMU DI SINI ⚠️
+        const API_KEY = "GANTIKAN_DENGAN_API_KEY_KAMU";
+
+        async function kirimPesan() {
+            const inputField = document.getElementById("user-input");
+            const chatContainer = document.getElementById("chat-container");
+            const pesanUser = inputField.value.trim();
+
+            if (!pesanUser) return; // Kalau kosong, jangan dikirim
+
+            // 1. Tampilkan pesan pengguna di layar
+            const userBubble = document.createElement("div");
+            userBubble.className = "message user-message";
+            userBubble.textContent = pesanUser;
+            chatContainer.appendChild(userBubble);
+
+            // Bersihkan kolom input & geser layar chat ke bawah
+            inputField.value = "";
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            // 2. Tampilkan status "Sedang mengetik..." dari AI
+            const aiBubble = document.createElement("div");
+            aiBubble.className = "message ai-message";
+            aiBubble.textContent = "Sedang berpikir...";
+            chatContainer.appendChild(aiBubble);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            try {
+                // 3. Hubungi Gemini API
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+                
+                const response = await fetch(url, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: pesanUser }] }]
+                    })
+                });
+
+                const data = await response.json();
+
+                // 4. Ambil jawaban dari respons API
+                const jawabanAI = data.candidates[0].content.parts[0].text;
+                aiBubble.textContent = jawabanAI;
+
+            } catch (error) {
+                console.error(error);
+                aiBubble.textContent = "Wah, maaf koneksinya error atau API Key kamu salah!";
+            }
+
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // Biar bisa kirim pesan pakai tombol "Enter" di keyboard HP
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                kirimPesan();
+            }
+        }
+    </script>
+
+</body>
+</html>
